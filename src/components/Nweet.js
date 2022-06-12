@@ -1,12 +1,15 @@
-import { dbService, storageService } from 'fBase'
-import React, { useState } from 'react'
+import { authService, dbService, storageService } from 'fBase'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
+import 'moment/locale/ko';
 
 function Nweet({ nweetObj, isOwner }) {
 
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
+    
     const onDeleteClick = async () => {
         const ok = window.confirm("정말 삭제하시겠습니까?")
         if (ok) {
@@ -47,6 +50,10 @@ function Nweet({ nweetObj, isOwner }) {
 
                     </>
                     : <>
+                        <div className={`author_line ${isOwner ? 'owner': 'none'}`}>
+                            <div className='text'>{nweetObj.author}</div>
+                            <div className='text'>{moment(nweetObj.createdAt).fromNow()}</div>
+                        </div>
                         <h4>{nweetObj.text}</h4>
                         {nweetObj.attachmentURL && <img src={nweetObj.attachmentURL} />}
                         {isOwner &&

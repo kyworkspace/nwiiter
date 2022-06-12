@@ -44,6 +44,7 @@ function NweetFactory({ userObj }) {
             text: nweet,
             createdAt: Date.now(),
             createrId: userObj.uid,
+            author : userObj.displayName,
             attachmentURL
         };
         await dbService.collection("nweets").add(nweetObj);

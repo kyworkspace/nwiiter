@@ -169,7 +169,7 @@ form {
 }
 
 .nweet {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   background-color: white;
   width: 100%;
   max-width: 320px;
@@ -186,13 +186,27 @@ form {
 }
 
 .nweet img {
-  right: -10px;
-  top: 20px;
+  right: -20px;
+  bottom: -20px;
   position: absolute;
   border-radius: 50%;
   width: 50px;
   height: 50px;
   margin-top: 10px;
+}
+.nweet .author_line{
+  display: flex;
+  justify-content: space-between;
+}
+.nweet .author_line.owner{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nweet .author_line.none{
+}
+.nweet .author_line .text{
+  color : lightgray;
+
 }
 
 .nweet__actions {
