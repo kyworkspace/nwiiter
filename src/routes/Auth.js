@@ -1,43 +1,14 @@
+import AuthForm from 'components/AuthForm';
 import { authService, firebaseInstance } from 'fBase';
 import React, { useState } from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTwitter,
+  faGoogle,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Auth=()=> {
-
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [newAccout, setNewAccout] = useState(true);
-  const [error, setError] = useState("");
-
-  const onChange=(e)=>{
-    const {target:{name,value}} = e;
-    if(name === "email"){
-      setEmail(value);
-    }else if(name === "password"){
-      setPassword(value);
-    }
-  }
-
-  const onSubmit=async (e)=>{
-    e.preventDefault();
-    try {
-      let data = null;
-      if(newAccout){
-        //create account
-        data = await authService.createUserWithEmailAndPassword(email,password);
-      }else{
-        //log in 
-        data = await authService.signInWithEmailAndPassword(email,password);
-      }  
-    } catch (error) {
-      setError(error.message);
-      console.log(error.message);
-    }
-    
-  }
-
-  const toggleAccount=()=>setNewAccout(prev=>!prev);
-
   const onSocialClick= async (e)=>{
     const {target:{name}} = e;
     let provider;
@@ -47,21 +18,21 @@ const Auth=()=> {
       provider = new firebaseInstance.auth.GithubAuthProvider();
     }
 
-    const data = await authService.signInWithPopup(provider);
-    console.log(data);
+    await authService.signInWithPopup(provider);
   }
+
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input name='email' type={"email"} placeholder="Email" required value={email} onChange={onChange}/>
-        <input name='password' type={"password"} placeholder="password" required value={password} onChange={onChange}/>
-        <input type="submit" value={newAccout?"계정 생성" : "로그인"}/>
-        {error}
-      </form>
-      <span onClick={toggleAccount}>{newAccout ? "로그인" :"계정 생성"} </span>
-      <div>
-        <button onClick={onSocialClick} name='google'>구글로 접속하기</button>
-        <button onClick={onSocialClick} name='github'>깃헙으로 접속하기</button>
+    <div className="authContainer">
+    <FontAwesomeIcon
+      icon={faTwitter}
+      color={"#04AAFF"}
+      size="3x"
+      style={{ marginBottom: 30 }}
+    />
+      <AuthForm/>
+      <div className="authBtns">
+        <button onClick={onSocialClick} name='google'  className="authBtn" >구글로 접속하기  <FontAwesomeIcon icon={faGoogle} /></button>
+        <button onClick={onSocialClick} name='github'  className="authBtn" >깃헙으로 접속하기 <FontAwesomeIcon icon={faGithub} /></button>
       </div>
     </div>
   )

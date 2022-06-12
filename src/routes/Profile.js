@@ -2,7 +2,7 @@ import { authService, dbService } from 'fBase'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
-function Profile({ userObj,refreshUser,setUserObj }) {
+function Profile({ userObj, refreshUser, setUserObj }) {
   const history = useHistory();
   const [newDisplayName, setnewDisplayName] = useState(userObj.displayName)
   const onLogoutClick = () => {
@@ -30,7 +30,7 @@ function Profile({ userObj,refreshUser,setUserObj }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName) {
-      await userObj.updateProfile(authService.currentUser,{
+      await userObj.updateProfile({
         displayName: newDisplayName
       })
       refreshUser();
@@ -38,14 +38,27 @@ function Profile({ userObj,refreshUser,setUserObj }) {
   }
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input type={'text'} placeholder="Display name" value={newDisplayName} onChange={e => setnewDisplayName(e.currentTarget.value)} />
-        <input type={'submit'} value={"update Profile"} />
-      </form>
-      <button onClick={onLogoutClick}>로그아웃</button>
-    </>
-
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+      <div className="container">
+        <form onSubmit={onSubmit} className="profileForm">
+          <input
+            autoFocus
+            type={'text'}
+            className="formInput"
+            placeholder="Display name"
+            value={newDisplayName}
+            onChange={e => setnewDisplayName(e.currentTarget.value)} />
+          <input type={'submit'} value={"update Profile"} className="formBtn" style={{
+            marginTop: 10,
+          }} />
+        </form>
+        <button
+          className="formBtn cancelBtn logOut"
+          onClick={onLogoutClick}>
+          로그아웃
+        </button>
+      </div>
+    </div>
   )
 }
 
