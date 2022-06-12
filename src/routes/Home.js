@@ -9,7 +9,7 @@ function Home({ userObj }) {
   const [nweets, setNweets] = useState([]);
   useEffect(() => {
     //스냅샷은 realtime 서버가 변화가 있을때 불러옴
-    dbService.collection("nweets").onSnapshot(snapShot => {
+    dbService.collection("nweets").orderBy("createdAt").onSnapshot(snapShot => {
       const nweetArray = snapShot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
       setNweets(nweetArray)
     })
