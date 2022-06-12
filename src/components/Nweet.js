@@ -39,7 +39,7 @@ function Nweet({ nweetObj, isOwner }) {
                             <>
                                 <form onSubmit={onSubmit} className="container nweetEdit">
                                     <input value={newNweet} required onChange={e => setNewNweet(e.target.value)} placeholder={"edit nweet"} />
-                                    <input type={'submit'} value={'Update Nweet'} />
+                                    <input className="formBtn"  type={'submit'} value={'Update Nweet'} />
                                 </form>
                                 <button onClick={toggleEditing} className="formBtn cancelBtn">cancel</button>
                             </>

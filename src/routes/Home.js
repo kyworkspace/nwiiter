@@ -20,7 +20,7 @@ function Home({ userObj }) {
       <div className="container">
         <NweetFactory userObj={userObj} />
         <div style={{ marginTop: 30 }}>
-          {nweets.map(n => (
+          {nweets.reverse().map(n => (
             <Nweet key={n.id} nweetObj={n} isOwner={n.createrId === userObj.uid} />
           ))}
         </div>
