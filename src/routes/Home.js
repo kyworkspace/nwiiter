@@ -71,7 +71,9 @@ function Home({ userObj }) {
   //파일인풋 초기화
   const onClearPhotoClick = () => {
     setAttachment("");
-    fileInputRef.current.value=null;
+    if(fileInputRef.current){
+      fileInputRef.current.value=null;
+    }
   }
 
   return (
